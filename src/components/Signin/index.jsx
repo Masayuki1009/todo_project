@@ -12,7 +12,7 @@ export const Signin = () => {
   let from = location.state?.from?.pathname || '/';//??
   console.log(from)
 
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState('');
   const [isSignup, toggleIsSignup] = useState(false);//初期値がfalse
 
