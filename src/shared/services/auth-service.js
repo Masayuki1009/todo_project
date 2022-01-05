@@ -44,13 +44,27 @@ const checkAuth = async () => {
 //DB通信を行なって、URLとともにtitle(todoの内容部分)をbackendに飛ばす
 const addTodos = async (title) => {
   try {
-      // const title = req.body;
-      await axios.post(`${API_URL}/todo/add`, { title });
-      // return res.status(200).json(title);
+      await axios.post(`${API_URL}/todo/add`, { title });//titleを渡してる
+
   } catch (error) {
   }
 }
 
+// const setTodoLists = async () => {
+//   try {
+//     const data = await axios.get(`${API_URL}/todo/get`);//
+//     console.log(data)
+// } catch (error) {
+// }
+// }
+
+// const setTodoLists = async () => {
+//   try {
+//     const data = await axios.get(`http://localhost:4000/todo/get`);//
+//     console.log(data)
+// } catch (error) {
+// }
+// }
 
 export const authService = Object.freeze({ signin, signup, checkAuth, addTodos})
 // Object.freeze: 1つのvaluable(authService)にまとめてる

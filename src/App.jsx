@@ -7,6 +7,7 @@ import { Home } from './components/Home'
 import { Landing } from './components/Landing'
 import { Signin } from './components/Signin'
 import { CheckAuth } from './shared/components/CheckAuth'
+import "./App.css"
 
 //component base
 export const App = () => {
