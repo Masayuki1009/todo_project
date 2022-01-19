@@ -34,7 +34,7 @@ const checkAuth = async () => {
                        Authorization: `Bearer ${token}`
              },
    })
-   console.log(token)
+  //  console.log(token)
    return true;
   } catch(error) {
             return false
@@ -42,29 +42,24 @@ const checkAuth = async () => {
 }
 
 //DB通信を行なって、URLとともにtitle(todoの内容部分)をbackendに飛ばす
-const addTodos = async (title) => {
+const addTodo = async (title) => {
   try {
+    const token = tokenManager.get();
+    console.log(token)
+    if (!token) throw new Error('unauthorized');
+    
       await axios.post(`${API_URL}/todo/add`, { title });//titleを渡してる
 
   } catch (error) {
   }
 }
 
-// const setTodoLists = async () => {
-//   try {
-//     const data = await axios.get(`${API_URL}/todo/get`);//
-//     console.log(data)
-// } catch (error) {
-// }
-// }
+const deleteTodo = async (id) => {
+  try {
+    await axios.delete(`${API_URL}/todo/delete/${id}`)
+  } catch(error) {
+  }
+}
 
-// const setTodoLists = async () => {
-//   try {
-//     const data = await axios.get(`http://localhost:4000/todo/get`);//
-//     console.log(data)
-// } catch (error) {
-// }
-// }
-
-export const authService = Object.freeze({ signin, signup, checkAuth, addTodos})
+export const authService = Object.freeze({ signin, signup, checkAuth, addTodo, deleteTodo})
 // Object.freeze: 1つのvaluable(authService)にまとめてる

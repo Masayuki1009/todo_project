@@ -6,47 +6,71 @@ import { authService } from '../../shared/services/auth-service';
 
 
 export const Home = () => {
-          // let navigate = useNavigate();
-          // let location = useLocation();
-          // console.log('hello from signin', location)
-          // let from = location.state?.from?.pathname || '/';//??
-          // console.log(from)
 
-          const [todos, addTodos] = useState("")
+          const [todos, addTodo] = useState("")
           const [todoLists, setTodoLists] = useState([])
 
           const handleSubmit  = async (e) => {
-                    
-                    await authService.addTodos(todos)
+                    e.preventDefault();
+                    if(todos === "") {
+                    return
+                    }
+                    // const newTodo = { title: todoInput }
+                    // const createdTodo = 
+                    await authService.addTodo(todos)
+                    // setTodoLists((prev) => [...prev, createdTodo])
+
+                    // add todo on browser
+
+                    // todoLists.map((todos) => {
+                    //      todos.title
+                    // })
           }
 
-          useEffect(
-                    async () => {
-                    await axios.get(`http://localhost:4000/todo/get`)
+          const deleteTodo = async (id) => {
+                    await authService.deleteTodo(id)
+          }
+
+          useEffect(() => {
+                    const getTodos = async () => {
+                    console.log("useEffect start")
+                    await axios.get("http://localhost:4000/todo/get")
                     .then((todos) => {
                     setTodoLists(todos.data)
-                    console.log(todos.data)
                     })
+                    }
+                    console.log(getTodos())
+                    getTodos()
                 }, [])
 
           return (
           <>
                     <h1>Todos App</h1>
                      <form onSubmit={handleSubmit}>
-                      <input type="text" name="item" placeholder="write todos"
+                      <input type="text" name="item" placeholder="write todos" 
+                    //   value={todoInput}
                       onChange={(e) => {
-                      e.preventDefault();
-                      if (e.target.value === ''){
-                              return
-                      }
-                      console.log(e.target.value)
-                      addTodos(e.target.value)
+                      addTodo(e.target.value)
                       }}/>
                       <button>add</button>
                      </form>
+                    
                     <ul>
-                    {todoLists.map((val, key) => <div key={key}>{val.title}</div>)}
+                    {todoLists.map((todo, key) => {
+                    return(
+                    <li key={key}>
+                    {todo.title}
+                    <button>edit</button>
+                    <button onClick={() => {
+                    
+                    deleteTodo(todo.id)
+                    }}>
+                    delete
+                    </button>
+                    </li>
+                    )}
+                    )}
                     </ul>
           </>
-          )
+     )
 }

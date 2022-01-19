@@ -1,3 +1,28 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 body {
   background: linear-gradient(-30deg, #f4f397, #f8f671);
+}
+
+li {
+  font-size: 20px;
+  font-weight: bold;
+  padding-bottom: 10px;
+  max-width: 500px;
+  list-style: none;
+}
+
+input {
+  height: 30px;
+}
+
+li button {
+  padding: 0px;
+  height: 30px;
+  line-height: 30px;
+  width: 50px;
+  float: right;
+  margin-top: 0px;
 }
