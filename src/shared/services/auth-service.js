@@ -45,21 +45,50 @@ const checkAuth = async () => {
 const addTodo = async (title) => {
   try {
     const token = tokenManager.get();
-    console.log(token)
+    // console.log("addTodo", title)
     if (!token) throw new Error('unauthorized');
-    
-      await axios.post(`${API_URL}/todo/add`, { title });//titleを渡してる
 
+    const res = await axios.post(`${API_URL}/todo/add`, title);//titleを渡してる
+
+    const data = await res.data
+    console.log("authservice", res)
+    return data
   } catch (error) {
+    console.log(error)
   }
 }
 
+// add cancel function when confirmed is false
 const deleteTodo = async (id) => {
   try {
+    const confirmed = window.confirm('Are you sure you want to delete it?');
+    // if (confirmed === false) {
+    //   return
+    // };
+    const token = tokenManager.get();
+
+    if (!token) throw new Error('unauthorized');
+
     await axios.delete(`${API_URL}/todo/delete/${id}`)
   } catch(error) {
   }
 }
 
-export const authService = Object.freeze({ signin, signup, checkAuth, addTodo, deleteTodo})
+const updateTodo = async (updatedTodo) => {
+  try {
+    const token = tokenManager.get();
+
+    if (!token) throw new Error('unauthorized');
+
+    const res = await axios.post(`${API_URL}/todo/add`, updateTodo);//titleを渡してる
+    
+    const data = await res.data
+    return data
+
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+export const authService = Object.freeze({ signin, signup, checkAuth, addTodo, deleteTodo, updateTodo})
 // Object.freeze: 1つのvaluable(authService)にまとめてる

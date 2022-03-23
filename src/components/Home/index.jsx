@@ -1,76 +1,69 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { authService } from '../../shared/services/auth-service';
-
-
+import axios from "axios";
+import { TodoItem } from "../TodoItem/index";
+import React, { useState, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { authService } from "../../shared/services/auth-service";
 
 export const Home = () => {
+  const [todos, addTodo] = useState("");
+  const [todoLists, setTodoLists] = useState([]);
+  const [todoInput, setTodoInput] = useState(""); // get todo's input, and set it
 
-          const [todos, addTodo] = useState("")
-          const [todoLists, setTodoLists] = useState([])
+  const clearInputs = () => {
+    setTodoInput("");
+  };
 
-          const handleSubmit  = async (e) => {
-                    e.preventDefault();
-                    if(todos === "") {
-                    return
-                    }
-                    // const newTodo = { title: todoInput }
-                    // const createdTodo = 
-                    await authService.addTodo(todos)
-                    // setTodoLists((prev) => [...prev, createdTodo])
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (todoInput === "") {
+        return;
+      }
+      const newTodo = { title: todoInput };
+      clearInputs();
+      const createdTodo = await authService.addTodo(newTodo);
+      console.log("newTodo", createdTodo);
+      setTodoLists((prev) => [...prev, createdTodo]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-                    // add todo on browser
+  useEffect(() => {
+    const getTodos = async () => {
+      try {
+        // console.log("useEffect start")
+        await axios.get("http://localhost:4000/todo/get").then((todos) => {
+          setTodoLists(todos.data);
+          console.log("useeffect", todos.data);
+        });
+      } catch (error) {
+        // console.log(error)
+      }
+    };
+    // console.log(getTodos())
+    getTodos();
+  }, []);
 
-                    // todoLists.map((todos) => {
-                    //      todos.title
-                    // })
-          }
+  return (
+    <>
+      <h1>Todos App</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="item"
+          placeholder="write todos"
+          value={todoInput}
+          onChange={(e) => setTodoInput(e.target.value)}
+        />
+        <button>add</button>
+      </form>
 
-          const deleteTodo = async (id) => {
-                    await authService.deleteTodo(id)
-          }
-
-          useEffect(() => {
-                    const getTodos = async () => {
-                    console.log("useEffect start")
-                    await axios.get("http://localhost:4000/todo/get")
-                    .then((todos) => {
-                    setTodoLists(todos.data)
-                    })
-                    }
-                    console.log(getTodos())
-                    getTodos()
-                }, [])
-
-          return (
-          <>
-                    <h1>Todos App</h1>
-                     <form onSubmit={handleSubmit}>
-                      <input type="text" name="item" placeholder="write todos" 
-                    //   value={todoInput}
-                      onChange={(e) => {
-                      addTodo(e.target.value)
-                      }}/>
-                      <button>add</button>
-                     </form>
-                    
-                    <ul>
-                    {todoLists.map((todo, key) => {
-                    return(
-                    <li key={key}>
-                    {todo.title}
-                    <button>edit</button>
-                    <button onClick={() => {
-                    
-                    deleteTodo(todo.id)
-                    }}>
-                    delete
-                    </button>
-                    </li>
-                    )}
-                    )}
-                    </ul>
-          </>
-     )
-}
+      <ul>
+        {todoLists.map((todo) => {
+          return <TodoItem key={todo.id} todo={todo} />;
+        })}
+      </ul>
+    </>
+  );
+};
