@@ -1,18 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { authService } from "../../shared/services/auth-service";
 
-export const TodoItem = ({ todo, deleteTodo }) => {
-  console.log("todo", todo);
-  const [todoLists, setTodoLists] = useState([]);
-
+export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
   // about todoItem as below
   const [isEditing, setIsEditing] = useState(false);
   const [newTodoTitle, setNewTodoTitle] = useState(todo.title);
 
   const handleSave = async (todo) => {
-    const updatedTodo = { ...todo, title: newTodoTitle }; //??
+    try {
+      
+      const updatedTodo = { ...todo, title: newTodoTitle }; //??
+      await authService.updateTodo(updatedTodo);
 
-    await authService.updateTodo(updatedTodo);
+      //firstly return updatedTodo after todo is updated, then map all todos???
+      setTodoLists((prev) =>
+      [...prev.map((todo) => {
+          if (todo.id === updatedTodo.id) return { ...updatedTodo };
+          console.log("after", {...updatedTodo })
+          return todo;
+        }),
+      ]);
+      setIsEditing(false);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -41,7 +52,7 @@ export const TodoItem = ({ todo, deleteTodo }) => {
 
       <div>
         {isEditing ? (
-          <button onClick={(e) => handleSave()}>save</button>
+          <button onClick={(e) => handleSave(todo)}>save</button>
         ) : (
           <button onClick={(e) => setIsEditing(true)}>edit</button>
         )}

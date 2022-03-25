@@ -8,6 +8,7 @@ export const Home = () => {
   const [todos, addTodo] = useState("");
   const [todoLists, setTodoLists] = useState([]);
   const [todoInput, setTodoInput] = useState(""); // get todo's input, and set it
+  
 
   const clearInputs = () => {
     setTodoInput("");
@@ -22,7 +23,6 @@ export const Home = () => {
       const newTodo = { title: todoInput };
       clearInputs();
       const createdTodo = await authService.addTodo(newTodo);
-      console.log("newTodo", createdTodo);
       setTodoLists((prev) => [...prev, createdTodo]);
     } catch (error) {
       console.log(error);
@@ -32,16 +32,13 @@ export const Home = () => {
   useEffect(() => {
     const getTodos = async () => {
       try {
-        // console.log("useEffect start")
         await axios.get("http://localhost:4000/todo/get").then((todos) => {
           setTodoLists(todos.data);
           console.log("useeffect", todos.data);
         });
       } catch (error) {
-        // console.log(error)
       }
     };
-    // console.log(getTodos())
     getTodos();
   }, []);
 
@@ -50,6 +47,7 @@ export const Home = () => {
      await authService.deleteTodo(id);
      setTodoLists((prev) => [...prev.filter((todo) => todo.id !== id)]);// pick up todos whose id does not match deleted id
    };
+
 
   return (
     <>
@@ -67,7 +65,7 @@ export const Home = () => {
 
       <ul>
         {todoLists.map((todo) => {
-          return <TodoItem key={todo.id} todo={todo} deleteTodo={deleteTodo}/>;
+          return <TodoItem key={todo.id} todo={todo} deleteTodo={deleteTodo} setTodoLists={setTodoLists}/>;
         })}
       </ul>
     </>

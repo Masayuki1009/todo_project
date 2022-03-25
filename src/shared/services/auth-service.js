@@ -5,7 +5,6 @@ const API_URL = 'http://localhost:4000'
 
 //外部通信する場合はasync
 const signin = async (email, password) => {
-  console.log("hello from signin", email, password)
   try {
   const res = await axios.post(`${API_URL}/login/signin`, { email, password })
   const {accessToken, expiresIn } = res.data;//accesstoken
@@ -14,7 +13,6 @@ const signin = async (email, password) => {
   }
 }
 const signup = async (email, password) => {
-  console.log("hello from signup", email, password)
   try {
   const res = await axios.post(`${API_URL}/login/signup`, { email, password })
   const {accessToken, expiresIn } = res.data;//accesstoken
@@ -34,7 +32,6 @@ const checkAuth = async () => {
                        Authorization: `Bearer ${token}`
              },
    })
-  //  console.log(token)
    return true;
   } catch(error) {
             return false
@@ -45,13 +42,11 @@ const checkAuth = async () => {
 const addTodo = async (title) => {
   try {
     const token = tokenManager.get();
-    // console.log("addTodo", title)
     if (!token) throw new Error('unauthorized');
 
     const res = await axios.post(`${API_URL}/todo/add`, title);//titleを渡してる
 
     const data = await res.data
-    console.log("authservice", res)
     return data
   } catch (error) {
     console.log(error)
@@ -76,14 +71,14 @@ const deleteTodo = async (id) => {
 
 const updateTodo = async (updatedTodo) => {
   try {
-    const token = tokenManager.get();
-
-    if (!token) throw new Error('unauthorized');
-
-    const res = await axios.post(`${API_URL}/todo/add`, updateTodo);//titleを渡してる
+    // could get id and updated content of todo
     
-    const data = await res.data
-    return data
+    const token = tokenManager.get();
+    if (!token) throw new Error('unauthorized')
+    
+    const title = updatedTodo.title
+
+    await axios.put(`${API_URL}/todo/update/${updatedTodo.id}`, { title })//titleを渡してる
 
   } catch (error) {
     console.log(error)
