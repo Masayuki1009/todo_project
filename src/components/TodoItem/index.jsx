@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { authService } from "../../shared/services/auth-service";
 
-export const TodoItem = ({ todo }) => {
+export const TodoItem = ({ todo, deleteTodo }) => {
   console.log("todo", todo);
   const [todoLists, setTodoLists] = useState([]);
 
   // about todoItem as below
   const [isEditing, setIsEditing] = useState(false);
   const [newTodoTitle, setNewTodoTitle] = useState(todo.title);
-
-  const deleteTodo = async (id) => {
-    await authService.deleteTodo(id);
-    setTodoLists((prev) => [...prev.filter((todo) => todo.id !== id)]);// pick up todos whose id does not match deleted id
-  };
 
   const handleSave = async (todo) => {
     const updatedTodo = { ...todo, title: newTodoTitle }; //??

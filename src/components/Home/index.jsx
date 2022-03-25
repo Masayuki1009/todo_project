@@ -45,6 +45,12 @@ export const Home = () => {
     getTodos();
   }, []);
 
+  //test as below
+  const deleteTodo = async (id) => {
+     await authService.deleteTodo(id);
+     setTodoLists((prev) => [...prev.filter((todo) => todo.id !== id)]);// pick up todos whose id does not match deleted id
+   };
+
   return (
     <>
       <h1>Todos App</h1>
@@ -61,7 +67,7 @@ export const Home = () => {
 
       <ul>
         {todoLists.map((todo) => {
-          return <TodoItem key={todo.id} todo={todo} />;
+          return <TodoItem key={todo.id} todo={todo} deleteTodo={deleteTodo}/>;
         })}
       </ul>
     </>
