@@ -31,11 +31,13 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
       key={todo.id}
       style={{
         display: "flex",
-        justifyContent: "space-between",
+        justifyContent:  "space-between",
         marginTop: "1rem",
         border: "1px gray solid",
         padding: "0.5rem",
-        borderRadius: "2px",
+        borderRadius: "10px",
+        background: "white",
+        maxWidth: "1000px",
       }}
     >
       <div>
@@ -49,16 +51,20 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
           <div>{todo.title}</div>
         )}
       </div>
-
-      <div>
+      <div
+      style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+        }}
+      >
+      <div style={{ paddingRight: '0.5rem' }}>
         {isEditing ? (
           <button onClick={(e) => handleSave(todo)}>save</button>
         ) : (
           <button onClick={(e) => setIsEditing(true)}>edit</button>
         )}
       </div>
-
-      <div>
+      <div style={{ paddingLeft: '0.5rem' }}>
         {isEditing ? (
           <button onClick={(e) => setIsEditing(false)}>cancel</button>
         ) : (
@@ -70,6 +76,7 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
             delete
           </button>
         )}
+      </div>
       </div>
     </li>
   );
