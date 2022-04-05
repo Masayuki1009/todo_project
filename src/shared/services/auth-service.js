@@ -79,16 +79,19 @@ const deleteTodo = async (id) => {
   }
 }
 
+// could get id and updated content of todo
 const updateTodo = async (updatedTodo) => {
   try {
-    // could get id and updated content of todo
-    
     const token = tokenManager.get();
     if (!token) throw new Error('unauthorized')
 
     const title = updatedTodo.title
 
-    await axios.put(`${API_URL}/todo/update/${updatedTodo.id}`, { title })//titleを渡してる
+    await axios.put(`${API_URL}/todo/update/${updatedTodo.id}`, { title }, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })//titleを渡してる
 
   } catch (error) {
     console.log(error)
