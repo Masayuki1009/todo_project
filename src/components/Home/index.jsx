@@ -3,12 +3,12 @@ import { TodoItem } from "../TodoItem/index";
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { authService } from "../../shared/services/auth-service";
+import { tokenManager } from "../../shared/utils/token-manager";
 
 export const Home = () => {
   const [todos, addTodo] = useState("");
   const [todoLists, setTodoLists] = useState([]);
   const [todoInput, setTodoInput] = useState(""); // get todo's input, and set it
-  
 
   const clearInputs = () => {
     setTodoInput("");
@@ -32,22 +32,27 @@ export const Home = () => {
   useEffect(() => {
     const getTodos = async () => {
       try {
-        await axios.get("http://localhost:4000/todo/get").then((todos) => {
+        const token = tokenManager.get()
+        if (!token) throw new Error('unauthorized');
+
+        await axios.get("http://localhost:4000/todo/get", {
+          headers: {
+               'Authorization': `Bearer ${token}`
+        }
+        }).then((todos) => {
           setTodoLists(todos.data);
           console.log("useeffect", todos.data);
         });
-      } catch (error) {
-      }
+      } catch (error) {}
     };
     getTodos();
   }, []);
 
   //test as below
   const deleteTodo = async (id) => {
-     await authService.deleteTodo(id);
-     setTodoLists((prev) => [...prev.filter((todo) => todo.id !== id)]);// pick up todos whose id does not match deleted id
-   };
-
+    await authService.deleteTodo(id);
+    setTodoLists((prev) => [...prev.filter((todo) => todo.id !== id)]); // pick up todos whose id does not match deleted id
+  };
 
   return (
     <>
@@ -65,7 +70,14 @@ export const Home = () => {
 
       <ul>
         {todoLists.map((todo) => {
-          return <TodoItem key={todo.id} todo={todo} deleteTodo={deleteTodo} setTodoLists={setTodoLists}/>;
+          return (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              deleteTodo={deleteTodo}
+              setTodoLists={setTodoLists}
+            />
+          );
         })}
       </ul>
     </>
