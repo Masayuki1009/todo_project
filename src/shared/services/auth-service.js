@@ -47,7 +47,6 @@ const addTodo = async (title) => {
 
     const res = await axios.post(`${API_URL}/todo/add`, title, {
       headers: {
-        'Content-Type': 'application/json;charset=UTF-8',
         'Authorization': `Bearer ${token}`
       }
     });
@@ -64,14 +63,18 @@ const addTodo = async (title) => {
 const deleteTodo = async (id) => {
   try {
     const confirmed = window.confirm('Are you sure you want to delete it?');
-    // if (confirmed === false) {
-    //   return
-    // };
+    console.log("confirmedの内容", confirmed)
+
+    if (!confirmed) return alert('delete is canceled');
     const token = tokenManager.get();
 
     if (!token) throw new Error('unauthorized');
 
-    await axios.delete(`${API_URL}/todo/delete/${id}`)
+    await axios.delete(`${API_URL}/todo/delete/${id}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
   } catch(error) {
   }
 }
