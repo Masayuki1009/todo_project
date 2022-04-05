@@ -12,6 +12,7 @@ const signin = async (email, password) => {
   } catch(err) {
   }
 }
+
 const signup = async (email, password) => {
   try {
   const res = await axios.post(`${API_URL}/login/signup`, { email, password })
@@ -44,9 +45,15 @@ const addTodo = async (title) => {
     const token = tokenManager.get();
     if (!token) throw new Error('unauthorized');
 
-    const res = await axios.post(`${API_URL}/todo/add`, title);//titleを渡してる
+    const res = await axios.post(`${API_URL}/todo/add`, title, {
+      headers: {
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    console.log("addした際のresの内容です", res.headers)
 
-    const data = await res.data
+    const data = await res.data//ここりゅうのと少し違う
     return data
   } catch (error) {
     console.log(error)
@@ -75,7 +82,7 @@ const updateTodo = async (updatedTodo) => {
     
     const token = tokenManager.get();
     if (!token) throw new Error('unauthorized')
-    
+
     const title = updatedTodo.title
 
     await axios.put(`${API_URL}/todo/update/${updatedTodo.id}`, { title })//titleを渡してる
