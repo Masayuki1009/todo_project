@@ -39,6 +39,23 @@ const checkAuth = async () => {
   }
 }
 
+const getTodos = async () => {
+  try {
+    const token = tokenManager.get()
+    if (!token) throw new Error('unauthorized');
+
+    const res = await axios.get("http://localhost:4000/todo/get", {
+      headers: {
+           'Authorization': `Bearer ${token}`
+    }})
+    console.log("res", res)
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+
 //DB通信を行なって、URLとともにtitle(todoの内容部分)をbackendに飛ばす
 const addTodo = async (title) => {
   try {
@@ -62,10 +79,7 @@ const addTodo = async (title) => {
 // add cancel function when confirmed is false
 const deleteTodo = async (id) => {
   try {
-    const confirmed = window.confirm('Are you sure you want to delete it?');
-    console.log("confirmedの内容", confirmed)
 
-    if (!confirmed) return alert('delete is canceled');
     const token = tokenManager.get();
 
     if (!token) throw new Error('unauthorized');
@@ -98,5 +112,5 @@ const updateTodo = async (updatedTodo) => {
   }
 };
 
-export const authService = Object.freeze({ signin, signup, checkAuth, addTodo, deleteTodo, updateTodo})
+export const authService = Object.freeze({ signin, signup, checkAuth, getTodos, addTodo, deleteTodo, updateTodo})
 // Object.freeze: 1つのvaluable(authService)にまとめてる

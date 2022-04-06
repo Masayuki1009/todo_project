@@ -30,26 +30,21 @@ export const Home = () => {
   };
 
   useEffect(() => {
-    const getTodos = async () => {
-      try {
-        const token = tokenManager.get()
-        if (!token) throw new Error('unauthorized');
-
-        await axios.get("http://localhost:4000/todo/get", {
-          headers: {
-               'Authorization': `Bearer ${token}`
-        }
-        }).then((todos) => {
+    authService
+    .getTodos()
+    .then((todos) => {
           setTodoLists(todos.data);
-          console.log("useeffect", todos.data);
-        });
-      } catch (error) {}
-    };
-    getTodos();
+          console.log("useeffect todos.json", todos.data);
+        })
+       .catch( (error) => {
+          console.log(error)
+       });
   }, []);
 
   //test as below
   const deleteTodo = async (id) => {
+     const confirmed = window.confirm('Are you sure you want to delete it?');
+     if (!confirmed) return alert('delete is canceled');
     await authService.deleteTodo(id);
     setTodoLists((prev) => [...prev.filter((todo) => todo.id !== id)]); // pick up todos whose id does not match deleted id
   };
