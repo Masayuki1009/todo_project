@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { tokenManager } from '../utils/token-manager';
 
-const API_URL = 'http://localhost:4000'
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 
 //外部通信する場合はasync
 const signin = async (email, password) => {

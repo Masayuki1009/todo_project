@@ -3,7 +3,6 @@ import { TodoItem } from "../TodoItem/index";
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { authService } from "../../shared/services/auth-service";
-import { tokenManager } from "../../shared/utils/token-manager";
 
 export const Home = () => {
   const [todos, addTodo] = useState("");
@@ -31,20 +30,20 @@ export const Home = () => {
 
   useEffect(() => {
     authService
-    .getTodos()
-    .then((todos) => {
-          setTodoLists(todos.data);
-          console.log("useeffect todos.json", todos.data);
-        })
-       .catch( (error) => {
-          console.log(error)
-       });
+      .getTodos()
+      .then((todos) => {
+        setTodoLists(todos.data);
+        console.log("useeffect todos.json", todos.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   //test as below
   const deleteTodo = async (id) => {
-     const confirmed = window.confirm('Are you sure you want to delete it?');
-     if (!confirmed) return alert('delete is canceled');
+    const confirmed = window.confirm("Are you sure you want to delete it?");
+    if (!confirmed) return alert("delete is canceled");
     await authService.deleteTodo(id);
     setTodoLists((prev) => [...prev.filter((todo) => todo.id !== id)]); // pick up todos whose id does not match deleted id
   };
