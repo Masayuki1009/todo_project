@@ -7,7 +7,7 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 const signin = async (email, password) => {
   try {
   const res = await axios.post(`${API_URL}/login/signin`, { email, password })
-  const {accessToken, expiresIn } = res.data;//accesstoken
+  const {accessToken } = res.data;//accesstoken
   tokenManager.set(accessToken)
   } catch(err) {
   }
@@ -16,7 +16,7 @@ const signin = async (email, password) => {
 const signup = async (email, password) => {
   try {
   const res = await axios.post(`${API_URL}/login/signup`, { email, password })
-  const {accessToken, expiresIn } = res.data;//accesstoken
+  const { accessToken } = res.data;//accesstoken
   tokenManager.set(accessToken)
 
   } catch(err) {
@@ -28,7 +28,7 @@ const checkAuth = async () => {
    const token = tokenManager.get()
    if(!token) return false
 
-   const res = await axios.get(`${API_URL}/accounts/check-auth`, {
+    await axios.get(`${API_URL}/accounts/check-auth`, {
              headers: {
                        Authorization: `Bearer ${token}`
              },

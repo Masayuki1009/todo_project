@@ -1,11 +1,11 @@
-import axios from "axios";
+// import axios from "axios";
 import { TodoItem } from "../TodoItem/index";
 import React, { useState, useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+// import { useLocation, useNavigate } from "react-router-dom";
 import { authService } from "../../shared/services/auth-service";
 
 export const Home = () => {
-  const [todos, addTodo] = useState("");
+//   const [todos, addTodo] = useState("");
   const [todoLists, setTodoLists] = useState([]);
   const [todoInput, setTodoInput] = useState(""); // get todo's input, and set it
 
