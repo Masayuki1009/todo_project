@@ -117,9 +117,6 @@ const updateTodo = async (updatedTodo) => {
 
 const signOut = () => {
   tokenManager.remove();
-  return(
-    <Redirect to ="/signin" />
-    )
 }
 
 export const authService = Object.freeze({ signin, signup, checkAuth, getTodos, addTodo, deleteTodo, updateTodo, signOut})
