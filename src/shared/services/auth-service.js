@@ -44,7 +44,7 @@ const getTodos = async () => {
     const token = tokenManager.get()
     if (!token) throw new Error('unauthorized');
 
-    const res = await axios.get("http://localhost:4000/todo/get", {
+    const res = await axios.get(`${API_URL}/todo/get`, {
       headers: {
            'Authorization': `Bearer ${token}`
     }})
