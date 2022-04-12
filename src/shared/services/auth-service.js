@@ -116,6 +116,7 @@ const updateTodo = async (updatedTodo) => {
 
 const signOut = () => {
   tokenManager.remove();
+  const navigate = useNavigate();
   navigate('/signin');
 }
 
