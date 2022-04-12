@@ -61,7 +61,7 @@ export const Home = () => {
               color: 'white',
               fontSize: '12px',
             }}
-            // onClick={(e) => handleSignOut()}
+            onClick={(e) => authService.signOut()}
           >
             Sign out
           </button>
