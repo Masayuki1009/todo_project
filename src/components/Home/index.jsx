@@ -63,7 +63,7 @@ export const Home = () => {
               color: 'white',
               fontSize: '12px',
             }}
-            onClick={(e) => () => {
+            onClick={(e) => {
               tokenManager.remove()
               navigate('/signin');
             }}
