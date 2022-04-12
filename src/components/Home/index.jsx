@@ -1,7 +1,6 @@
-// import axios from "axios";
+
 import { TodoItem } from "../TodoItem/index";
 import React, { useState, useEffect } from "react";
-// import { useLocation, useNavigate } from "react-router-dom";
 import { authService } from "../../shared/services/auth-service";
 
 export const Home = () => {
@@ -50,7 +49,24 @@ export const Home = () => {
 
   return (
     <>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
       <h1>Todos App</h1>
+      <div>
+          <button
+            style={{
+              border: 'none',
+              padding: '0.5rem',
+              borderRadius: '2px',
+              background: '#f44336',
+              color: 'white',
+              fontSize: '12px',
+            }}
+            onClick={(e) => handleSignOut()}
+          >
+            Sign out
+          </button>
+        </div>
+      </div>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
