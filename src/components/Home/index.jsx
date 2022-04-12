@@ -2,9 +2,11 @@
 import { TodoItem } from "../TodoItem/index";
 import React, { useState, useEffect } from "react";
 import { authService } from "../../shared/services/auth-service";
+import { tokenManager } from '../../shared/utils/token-manager';
+import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
-//   const [todos, addTodo] = useState("");
+  const navigate = useNavigate();
   const [todoLists, setTodoLists] = useState([]);
   const [todoInput, setTodoInput] = useState(""); // get todo's input, and set it
 
@@ -61,7 +63,10 @@ export const Home = () => {
               color: 'white',
               fontSize: '12px',
             }}
-            onClick={(e) => authService.signOut()}
+            onClick={(e) => () => {
+              tokenManager.remove()
+              navigate('/signin');
+            }}
           >
             Sign out
           </button>

@@ -1,7 +1,5 @@
 import axios from 'axios';
 import { tokenManager } from '../utils/token-manager';
-// import { useNavigate } from 'react-router-dom';
-// import { Redirect } from 'react-router-dom';
 
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
@@ -115,9 +113,5 @@ const updateTodo = async (updatedTodo) => {
   }
 };
 
-const signOut = () => {
-  tokenManager.remove();
-}
-
-export const authService = Object.freeze({ signin, signup, checkAuth, getTodos, addTodo, deleteTodo, updateTodo, signOut})
+export const authService = Object.freeze({ signin, signup, checkAuth, getTodos, addTodo, deleteTodo, updateTodo})
 // Object.freeze: 1つのvaluable(authService)にまとめてる
