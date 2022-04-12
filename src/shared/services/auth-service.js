@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { tokenManager } from '../utils/token-manager';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 
 const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
@@ -116,8 +116,9 @@ const updateTodo = async (updatedTodo) => {
 
 const signOut = () => {
   tokenManager.remove();
-  const navigate = useNavigate();
-  navigate('/signin');
+  return(
+    <Redirect to ="/signin" />
+    )
 }
 
 export const authService = Object.freeze({ signin, signup, checkAuth, getTodos, addTodo, deleteTodo, updateTodo, signOut})
