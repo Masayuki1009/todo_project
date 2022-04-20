@@ -11,7 +11,7 @@ export const Home = () => {
   const [todoInput, setTodoInput] = useState(""); // get todo's input, and set it
 
   const clearInputs = () => {
-    setTodoInput("");
+    setTodoInput("")
   };
 
   const handleSubmit = async (e) => {
