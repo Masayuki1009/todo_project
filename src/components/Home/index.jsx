@@ -18,7 +18,7 @@ export const Home = () => {
     e.preventDefault();
     try {
       if (todoInput === "") {
-        return;
+        return
       }
       const newTodo = { title: todoInput };
       clearInputs();
