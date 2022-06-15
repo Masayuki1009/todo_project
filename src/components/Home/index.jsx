@@ -52,7 +52,7 @@ export const Home = () => {
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <h1>Todos App</h1>
+      <h1>Todos App Test</h1>
       <div>
           <button
             style={{
