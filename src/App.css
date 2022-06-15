@@ -1,4 +1,4 @@
-*, *::before, *::after {
+/* *, *::before, *::after {
   box-sizing: border-box;
 }
 
@@ -39,4 +39,4 @@ form button {
 ul {
   list-style-type: none;
   padding: 0;
-}
+} */
