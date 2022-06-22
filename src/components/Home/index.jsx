@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { authService } from "../../shared/services/auth-service";
 import { tokenManager } from '../../shared/utils/token-manager';
 import { useNavigate } from 'react-router-dom';
-import styles from './home.css';
+import './home.css';
 
 export const Home = () => {
   const navigate = useNavigate();

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { authService } from "../../shared/services/auth-service";
-import { styles } from "./todoItem.css"
+import "./todoItem.css"
 
 export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
   // about todoItem as below
