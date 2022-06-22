@@ -1,4 +1,4 @@
-.todo-item {
+.todoItem {
   display: flex;
   align-items: center;
   width: 100%;
@@ -22,6 +22,8 @@
   font-family: "Poppins", sans-serif;
   color: var(--white);
   background-color: var(--dark);
+  border: 0.8rem solid var(--dark);
+
 }
 
 .btn {
@@ -34,10 +36,10 @@
   width: 6rem;
 }
 
-.save-edit-btn-container {
+.saveEditBtnContainer {
   padding-right: 0.5rem;
 }
 
-.delete-btn-container {
+.deleteBtnContainer {
   padding-right: 0.5rem;
 }

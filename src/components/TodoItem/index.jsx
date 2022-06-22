@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { authService } from "../../shared/services/auth-service";
-import "./todoItem.css"
+import styles from "./todoItem.module.css"
 
 export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
   // about todoItem as below
@@ -30,14 +30,14 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
   return (
     <li
       key={todo.id}
-      className="todo-item"
+      className={styles.todoItem}
     >
       <div>
         {isEditing ? (
           <input
             type="text"
             value={newTodoTitle}
-            className="input"
+            className={styles.input}
             onChange={(e) => setNewTodoTitle(e.target.value)}
           />
         ) : (
@@ -50,22 +50,22 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
           justifyContent: 'space-between',
         }}
       >
-      <div className="save-edit-btn-container">
+      <div className={styles.saveEditBtnContainer}>
         {isEditing ? (
-          <button onClick={(e) => handleSave(todo)} className="btn">save</button>
+          <button onClick={(e) => handleSave(todo)} className={styles.btn}>save</button>
         ) : (
-          <button onClick={(e) => setIsEditing(true)} className="btn">edit</button>
+          <button onClick={(e) => setIsEditing(true)} className={styles.btn}>edit</button>
         )}
       </div>
-      <div className="delete-btn-container">
+      <div className={styles.deleteBtnContainer}>
         {isEditing ? (
-          <button onClick={(e) => setIsEditing(false)} className="btn">cancel</button>
+          <button onClick={(e) => setIsEditing(false)} className={styles.btn}>cancel</button>
         ) : (
           <button
             onClick={() => {
               deleteTodo(todo.id);
             }}
-            className="btn"
+            className={styles.btn}
           >
             delete
           </button>
