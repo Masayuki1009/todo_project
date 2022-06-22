@@ -1,0 +1,76 @@
+.add-todo-content-input {
+  width: 100%;
+  font-size: 1.125rem;
+  padding: 1rem 1.5rem;
+  color: var(--white);
+  background-color: var(--grey);
+  border-radius: 0.5rem;
+  border: 1px solid var(--grey);
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+  outline: none;
+}
+
+.add-btn {
+  width: 100%;
+  font-size: 1.125rem;
+  padding: 1rem 1.5rem;
+  color: var(--white);
+  background-color: var(--primary);
+  border-radius: 0.5rem;
+  border: 1px solid var(--primary);
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+  outline: none;
+  cursor: pointer;
+  transition: 0.2s ease-out;
+}
+
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .container {
+    width: 540px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    width: 720px;
+  }
+}
+@media (min-width: 992px) {
+  .container {
+    width: 960px;
+  }
+}
+@media (min-width: 1200px) {
+  .container {
+    width: 1140px;
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.signout-btn {
+  border: "none";
+  padding: "0.5rem";
+  border-radius: "2px";
+  background: "#f44336";
+  color: "white";
+  font-size: "12px";
+  background-color: var(--purple);
+  color: var(--white);
+  border: 0.2rem solid var(--purple);
+  border-radius: 1.1rem;
+  font-size: 1.1rem;
+  width: 5rem;
+}

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { authService } from "../../shared/services/auth-service";
 import { tokenManager } from '../../shared/utils/token-manager';
 import { useNavigate } from 'react-router-dom';
+import styles from './home.css';
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -51,26 +52,18 @@ export const Home = () => {
 
   return (
     <>
-      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-      <h1>Todos App test</h1>
-      <div>
+    <div className="container">
+      <div className="header">
+      <h1>Todos App</h1>
           <button
-            style={{
-              border: 'none',
-              padding: '0.5rem',
-              borderRadius: '2px',
-              background: '#f44336',
-              color: 'white',
-              fontSize: '12px',
-            }}
             onClick={(e) => {
               tokenManager.remove()
               navigate('/signin');
             }}
+            className="signout-btn"
           >
             Sign out
           </button>
-        </div>
       </div>
       <form onSubmit={handleSubmit}>
         <input
@@ -78,9 +71,10 @@ export const Home = () => {
           name="item"
           placeholder="write todos"
           value={todoInput}
+          className="add-todo-content-input"
           onChange={(e) => setTodoInput(e.target.value)}
         />
-        <button>add</button>
+        <button className="add-btn">add</button>
       </form>
 
       <ul>
@@ -95,6 +89,7 @@ export const Home = () => {
           );
         })}
       </ul>
+      </div>
     </>
   );
 };

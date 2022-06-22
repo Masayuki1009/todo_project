@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { authService } from "../../shared/services/auth-service";
+import { styles } from "./todoItem.css"
 
 export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
   // about todoItem as below
@@ -29,22 +30,14 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
   return (
     <li
       key={todo.id}
-      style={{
-        display: "flex",
-        justifyContent:  "space-between",
-        marginTop: "1rem",
-        border: "1px gray solid",
-        padding: "0.5rem",
-        borderRadius: "10px",
-        background: "white",
-        maxWidth: "1000px",
-      }}
+      className="todo-item"
     >
       <div>
         {isEditing ? (
           <input
             type="text"
             value={newTodoTitle}
+            className="input"
             onChange={(e) => setNewTodoTitle(e.target.value)}
           />
         ) : (
@@ -57,21 +50,22 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
           justifyContent: 'space-between',
         }}
       >
-      <div style={{ paddingRight: '0.5rem' }}>
+      <div className="save-edit-btn-container">
         {isEditing ? (
-          <button onClick={(e) => handleSave(todo)}>save</button>
+          <button onClick={(e) => handleSave(todo)} className="btn">save</button>
         ) : (
-          <button onClick={(e) => setIsEditing(true)}>edit</button>
+          <button onClick={(e) => setIsEditing(true)} className="btn">edit</button>
         )}
       </div>
-      <div style={{ paddingLeft: '0.5rem' }}>
+      <div className="delete-btn-container">
         {isEditing ? (
-          <button onClick={(e) => setIsEditing(false)}>cancel</button>
+          <button onClick={(e) => setIsEditing(false)} className="btn">cancel</button>
         ) : (
           <button
             onClick={() => {
               deleteTodo(todo.id);
             }}
+            className="btn"
           >
             delete
           </button>

@@ -1,42 +1,47 @@
-*, *::before, *::after {
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-html,
-body,
-#root {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans,
-    Helvetica Neue, sans-serif;
-  height: 100% !important;
-}
-
 body {
-  background: linear-gradient(-30deg, #E6FFE9, #E6FFE9);
+  background: var(--dark-light);
+  color: var(--white);
+  font-family: "Poppins", sans-serif;
 }
 
-
-input {
-  height: 30px;
+li {
+  list-style-type: none;
 }
 
-form {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  font-size: 100%;
-  vertical-align: baseline;
-  background: transparent;
-}
+:root {
+  --primary: var(--purple);
+  --secondary: var(--green);
+  --dark: #111417;
+  --dark-light: #25282c;
+  --white: #dcddde;
+  --grey: #40444b;
+  --green: #0be881;
+  --red: #ff6347;
+  --blue: #3a82ee;
+  --light-blue: rgba(58, 130, 238, 0.75);
+  --purple: #5865f2;
 
-form button {
-  height: 30px;
-  width: 50px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 ul {
   list-style-type: none;
-  padding: 0;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Landing Page */
+.landing--page {
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+.btn {
+  cursor: pointer;
 }
