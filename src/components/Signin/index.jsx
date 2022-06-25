@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useLocation, useNavigate } from "react-router-dom";
 import { authService } from "../../shared/services/auth-service";
+import styles from "./signin.module.css"
 
 export const Signin = () => {
   let navigate = useNavigate();
@@ -32,10 +33,11 @@ export const Signin = () => {
 
   return (
     <>
-      <h1>Sign {isSignup ? "up" : "in"}</h1>
+    <div className={styles.container}>
+      <h1> Sign {isSignup ? "up" : "in"}</h1>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Email</label>
+          <label>Email</label><br></br>
           <input
             type="email"
             name="email"
@@ -43,30 +45,27 @@ export const Signin = () => {
           />
         </div>
         <div>
-          <label>Password</label>
+          <label>Password</label><br></br>
           <input
             type="password"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button>Sign {isSignup ? "up" : "in"}</button>
+        <button className={styles.btn}>Sign {isSignup ? "up" : "in"}</button>
       </form>
       <div>
         or{" "}
         <span
-          style={{
-            cursor: "pointer",
-            color: "blue",
-            textDecoration: "underline",
-          }}
+          className={styles.signBtn}
           onClick={() => toggleIsSignup(!isSignup)}
         >
           sign {isSignup ? "in" : "up"}?
         </span>
         <div>
-          <Link to="/">To Landing</Link>
+          <Link to="/" className={styles.landingBtn}>To Landing</Link>
         </div>
+      </div>
       </div>
     </>
   );

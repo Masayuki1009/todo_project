@@ -2,10 +2,16 @@ import React, { useState } from "react";
 import { authService } from "../../shared/services/auth-service";
 import styles from "./todoItem.module.css"
 
+// test
 export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
   // about todoItem as below
   const [isEditing, setIsEditing] = useState(false);
   const [newTodoTitle, setNewTodoTitle] = useState(todo.title);
+
+
+    // test
+    const date = new Date()
+    const newDate = date.toLocaleString()
 
   const handleSave = async (todo) => {
     try {
@@ -43,6 +49,7 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
         ) : (
           <div>{todo.title}</div>
         )}
+        <small className={styles.time}>{newDate}</small>
       </div>
       <div
       style={{
@@ -73,5 +80,6 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
       </div>
       </div>
     </li>
+    
   );
 };

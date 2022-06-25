@@ -76,7 +76,6 @@ export const Home = () => {
         />
         <button className={styles.addBtn}>add</button>
       </form>
-
       <ul>
         {todoLists.map((todo) => {
           return (
