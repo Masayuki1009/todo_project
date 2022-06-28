@@ -58,21 +58,16 @@ const getTodos = async () => {
 
 
 //DB通信を行なって、URLとともにtitle(todoの内容部分)をbackendに飛ばす
-// const addTodo = async (title, createdAt) => {
 const addTodo = async (title, createdAt) => {
   try {
-    // console.log("addtodo", title, createdAt)
-    // return
     const token = tokenManager.get();
     if (!token) throw new Error('unauthorized');
 
     const res = await axios.post(`${API_URL}/todo/add`, { title, createdAt }, {
-    // const res = await axios.post(`${API_URL}/todo/add`, title , {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     });
-    // console.log("addした際のresの内容です", res.headers)
     console.log("res", res)
 
     const data = await res.data//ここりゅうのと少し違う

@@ -16,34 +16,6 @@ export const Home = () => {
 
   let date = new Date();
   const newDate = date.toLocaleString();
-  // const createdyear = date.getFullYear();
-  // const createdMonth = () => {
-  //   if (date.getMonth() < 10) {
-  //     const month = date.getMonth() + 1;
-  //     return "0" + month;
-  //   } else {
-  //     return date.getMonth() + 1;
-  //   }
-  // };
-  // const createdDate = () => {
-  //   if (date.getDate() < 10) {
-  //     const today = date.getdate();
-  //     return "0" + today;
-  //   } else {
-  //     return date.getDate();
-  //   }
-  // };
-  // console.log(
-  //   "newDateの結果",
-  //   `${createdyear}/${createdMonth()}/${createdDate()}`
-  // );
-
-  // const trueNewDate = `${createdyear}/${createdMonth()}/${createdDate()}`
-  // const revisedDate = trueNewDate.replace(
-  //   `${createdyear}/${createdMonth()}/${createdDate()}`,
-  //   `${createdyear}-${createdMonth()}-${createdDate()}`
-  // );
-  // console.log("revisedDate", revisedDate);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,17 +23,11 @@ export const Home = () => {
       if (todoInput === "") {
         return;
       }
-      // const newTodo = { title: todoInput };
-      // const createdDate = { createdAt: newDate }
       const title = todoInput;
       const createdAt = newDate;
-      // console.log("createdDate", createdDate)
       clearInputs();
-      // const createdTodo = await authService.addTodo(newTodo, createdDate);
       const createdTodo = await authService.addTodo(title, createdAt);
       console.log("createdTodo", createdTodo);
-      // const createdTodo = await authService.addTodo(newTodo);
-      //保管
       setTodoLists((prev) => [...prev, createdTodo]);
     } catch (error) {
       console.log(error);

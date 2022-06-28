@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { authService } from "../../shared/services/auth-service";
 import styles from "./todoItem.module.css"
 
-
-// export const TodoItem = ({ todo, deleteTodo, setTodoLists, newDate }) => {
 export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
   // about todoItem as below
   const [isEditing, setIsEditing] = useState(false);
