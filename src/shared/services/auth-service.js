@@ -49,7 +49,7 @@ const getTodos = async () => {
       headers: {
            'Authorization': `Bearer ${token}`
     }})
-    console.log("res", res)
+    console.log("res ", res.data[0].createdAt.toLocaleString())
     return res
   } catch (error) {
     console.log(error)
@@ -58,19 +58,25 @@ const getTodos = async () => {
 
 
 //DB通信を行なって、URLとともにtitle(todoの内容部分)をbackendに飛ばす
-const addTodo = async (title) => {
+// const addTodo = async (title, createdAt) => {
+const addTodo = async (title, createdAt) => {
   try {
+    // console.log("addtodo", title, createdAt)
+    // return
     const token = tokenManager.get();
     if (!token) throw new Error('unauthorized');
 
-    const res = await axios.post(`${API_URL}/todo/add`, title, {
+    const res = await axios.post(`${API_URL}/todo/add`, { title, createdAt }, {
+    // const res = await axios.post(`${API_URL}/todo/add`, title , {
       headers: {
         'Authorization': `Bearer ${token}`
       }
     });
-    console.log("addした際のresの内容です", res.headers)
+    // console.log("addした際のresの内容です", res.headers)
+    console.log("res", res)
 
     const data = await res.data//ここりゅうのと少し違う
+    console.log("data", data)
     return data
   } catch (error) {
     console.log(error)

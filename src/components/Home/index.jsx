@@ -1,9 +1,8 @@
-
 import { TodoItem } from "../TodoItem/index";
 import React, { useState, useEffect } from "react";
 import { authService } from "../../shared/services/auth-service";
-import { tokenManager } from '../../shared/utils/token-manager';
-import { useNavigate } from 'react-router-dom';
+import { tokenManager } from "../../shared/utils/token-manager";
+import { useNavigate } from "react-router-dom";
 import styles from "./home.module.css";
 
 export const Home = () => {
@@ -12,18 +11,57 @@ export const Home = () => {
   const [todoInput, setTodoInput] = useState(""); // get todo's input, and set it
 
   const clearInputs = () => {
-    setTodoInput("")
+    setTodoInput("");
   };
+
+  let date = new Date();
+  const newDate = date.toLocaleString();
+  // const createdyear = date.getFullYear();
+  // const createdMonth = () => {
+  //   if (date.getMonth() < 10) {
+  //     const month = date.getMonth() + 1;
+  //     return "0" + month;
+  //   } else {
+  //     return date.getMonth() + 1;
+  //   }
+  // };
+  // const createdDate = () => {
+  //   if (date.getDate() < 10) {
+  //     const today = date.getdate();
+  //     return "0" + today;
+  //   } else {
+  //     return date.getDate();
+  //   }
+  // };
+  // console.log(
+  //   "newDateの結果",
+  //   `${createdyear}/${createdMonth()}/${createdDate()}`
+  // );
+
+  // const trueNewDate = `${createdyear}/${createdMonth()}/${createdDate()}`
+  // const revisedDate = trueNewDate.replace(
+  //   `${createdyear}/${createdMonth()}/${createdDate()}`,
+  //   `${createdyear}-${createdMonth()}-${createdDate()}`
+  // );
+  // console.log("revisedDate", revisedDate);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (todoInput === "") {
-        return
+        return;
       }
-      const newTodo = { title: todoInput };
+      // const newTodo = { title: todoInput };
+      // const createdDate = { createdAt: newDate }
+      const title = todoInput;
+      const createdAt = newDate;
+      // console.log("createdDate", createdDate)
       clearInputs();
-      const createdTodo = await authService.addTodo(newTodo);
+      // const createdTodo = await authService.addTodo(newTodo, createdDate);
+      const createdTodo = await authService.addTodo(title, createdAt);
+      console.log("createdTodo", createdTodo);
+      // const createdTodo = await authService.addTodo(newTodo);
+      //保管
       setTodoLists((prev) => [...prev, createdTodo]);
     } catch (error) {
       console.log(error);
@@ -35,7 +73,7 @@ export const Home = () => {
       .getTodos()
       .then((todos) => {
         setTodoLists(todos.data);
-        console.log("useeffect todos.json", todos.data);
+        console.log("useeffect todos.json", todos.data[0]);
       })
       .catch((error) => {
         console.log(error);
@@ -52,42 +90,43 @@ export const Home = () => {
 
   return (
     <>
-    <div className={styles.container}>
-      <div className={styles.header}>
-      <h1>Todos App</h1>
+      <div className={styles.container}>
+        <div className={styles.header}>
+          <h1>Todos App</h1>
           <button
             onClick={(e) => {
-              tokenManager.remove()
-              navigate('/signin');
+              tokenManager.remove();
+              navigate("/signin");
             }}
             className={styles.signoutBtn}
           >
             Sign out
           </button>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="item"
-          placeholder="write todos"
-          value={todoInput}
-          className={styles.addTodoContentInput}
-          onChange={(e) => setTodoInput(e.target.value)}
-        />
-        <button className={styles.addBtn}>add</button>
-      </form>
-      <ul>
-        {todoLists.map((todo) => {
-          return (
-            <TodoItem
-              key={todo.id}
-              todo={todo}
-              deleteTodo={deleteTodo}
-              setTodoLists={setTodoLists}
-            />
-          );
-        })}
-      </ul>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="item"
+            placeholder="write todos"
+            value={todoInput}
+            className={styles.addTodoContentInput}
+            onChange={(e) => setTodoInput(e.target.value)}
+          />
+          <button className={styles.addBtn}>add</button>
+        </form>
+        <ul>
+          {todoLists.map((todo) => {
+            console.log("todoLists", todo);
+            return (
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                deleteTodo={deleteTodo}
+                setTodoLists={setTodoLists}
+              />
+            );
+          })}
+        </ul>
       </div>
     </>
   );
