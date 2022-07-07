@@ -1,40 +1,53 @@
 import React, { useState } from "react";
 import { authService } from "../../shared/services/auth-service";
-import styles from "./todoItem.module.css"
+import styles from "./todoItem.module.css";
 
 export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
-  // about todoItem as below
   const [isEditing, setIsEditing] = useState(false);
   const [newTodoTitle, setNewTodoTitle] = useState(todo.title);
 
   const handleSave = async (todo) => {
     try {
-      const updatedTodo = { ...todo, title: newTodoTitle }; //??
+      let date = new Date();
+      const updateDate = date.toLocaleString();
+      const updatedTodo = { ...todo, title: newTodoTitle, updatedAt: updateDate }; //??
       await authService.updateTodo(updatedTodo);
+      console.log("uodatedTodo", updatedTodo)
 
       //firstly return updatedTodo after todo is updated, then map all todos???
-      setTodoLists((prev) =>
-      [...prev.map((todo) => {
+      setTodoLists((prev) => [
+        ...prev.map((todo) => {
           if (todo.id === updatedTodo.id) return { ...updatedTodo };
-          console.log("after", {...updatedTodo })
+          console.log("success!", todo);
           return todo;
         }),
       ]);
       setIsEditing(false);
+      // showUpdated(true)
     } catch (error) {
       console.log(error);
     }
   };
 
-  let date = new Date(todo.createdAt)
-  console.log("date", date)
-  const translatedDate = date.toLocaleString()
+  let date = new Date(todo.createdAt);
+  let translatedDate = "created at:" + date.toLocaleString();
+
+  let updated = new Date(todo.updatedAt)
+  let updatedDate = "updated at:" + updated.toLocaleString();
+  console.log("check result", updated)
+  const isInvalidDate = (date) => Number.isNaN(date.getTime());
+  const result = isInvalidDate(updated)
+
+  if(result === true) {
+    updatedDate = "";
+  } else {
+    translatedDate = "";
+  }
+
+  // Number.isNaN()
 
   return (
-    <li
-      key={todo.id}
-      className={styles.todoItem}
-    >
+    <li key={todo.id} className={styles.todoItem}>
       <div>
         {isEditing ? (
           <input
@@ -46,35 +59,42 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
         ) : (
           <div>{todo.title}</div>
         )}
-        <small className={styles.time}>{translatedDate}</small>
+          <small className={styles.time}>{updatedDate}</small>
+          <small className={styles.time}>{translatedDate}</small>
       </div>
       <div
-      style={{
-          display: 'flex',
-          justifyContent: 'space-between',
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
         }}
       >
-      <div className={styles.saveEditBtnContainer}>
-        {isEditing ? (
-          <button onClick={(e) => handleSave(todo)} className={styles.btn}>save</button>
-        ) : (
-          <button onClick={(e) => setIsEditing(true)} className={styles.btn}>edit</button>
-        )}
-      </div>
-      <div className={styles.deleteBtnContainer}>
-        {isEditing ? (
-          <button onClick={(e) => setIsEditing(false)} className={styles.btn}>cancel</button>
-        ) : (
-          <button
-            onClick={() => {
-              deleteTodo(todo.id);
-            }}
-            className={styles.btn}
-          >
-            delete
-          </button>
-        )}
-      </div>
+        <div className={styles.saveEditBtnContainer}>
+          {isEditing ? (
+            <button onClick={(e) => handleSave(todo)} className={styles.btn}>
+              save
+            </button>
+          ) : (
+            <button onClick={(e) => setIsEditing(true)} className={styles.btn}>
+              edit
+            </button>
+          )}
+        </div>
+        <div className={styles.deleteBtnContainer}>
+          {isEditing ? (
+            <button onClick={(e) => setIsEditing(false)} className={styles.btn}>
+              cancel
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                deleteTodo(todo.id);
+              }}
+              className={styles.btn}
+            >
+              delete
+            </button>
+          )}
+        </div>
       </div>
     </li>
   );

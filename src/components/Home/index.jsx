@@ -34,12 +34,24 @@ export const Home = () => {
     }
   };
 
+  const handleSort = async () => {
+    authService
+      .getTodosOrderByTime()
+      .then((todos) => {
+        setTodoLists(todos.data);
+        console.log("handleSort", todos.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
   useEffect(() => {
     authService
       .getTodos()
       .then((todos) => {
         setTodoLists(todos.data);
-        console.log("useeffect todos.json", todos.data[0]);
+        console.log("useeffect todos.json", todos.data);
       })
       .catch((error) => {
         console.log(error);
@@ -80,9 +92,13 @@ export const Home = () => {
           />
           <button className={styles.addBtn}>add</button>
         </form>
+        <form onSubmit={handleSort}>
+          <button
+          className={styles.addTodoContentInput}
+          >sort</button>
+        </form>
         <ul>
           {todoLists.map((todo) => {
-            console.log("todoLists", todo);
             return (
               <TodoItem
                 key={todo.id}

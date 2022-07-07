@@ -8,7 +8,7 @@ const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:4000';
 const signin = async (email, password) => {
   try {
   const res = await axios.post(`${API_URL}/login/signin`, { email, password })
-  const {accessToken } = res.data;//accesstoken
+  const { accessToken } = res.data;//accesstoken
   tokenManager.set(accessToken)
   } catch(err) {
   }
@@ -56,8 +56,21 @@ const getTodos = async () => {
   }
 };
 
+const getTodosOrderByTime = async () => {
+  try {
+    const token = tokenManager.get()
+    if (!token) throw new Error('unauthorized');
 
-//DB通信を行なって、URLとともにtitle(todoの内容部分)をbackendに飛ばす
+    const res = await axios.get(`${API_URL}/todo/get/order`, {
+      headers: {
+           'Authorization': `Bearer ${token}`
+    }})
+    return res
+  } catch (error) {
+    console.log(error)
+  }
+};
+
 const addTodo = async (title, createdAt) => {
   try {
     const token = tokenManager.get();
@@ -78,7 +91,6 @@ const addTodo = async (title, createdAt) => {
   }
 }
 
-// add cancel function when confirmed is false
 const deleteTodo = async (id) => {
   try {
 
@@ -95,24 +107,25 @@ const deleteTodo = async (id) => {
   }
 }
 
-// could get id and updated content of todo
 const updateTodo = async (updatedTodo) => {
   try {
     const token = tokenManager.get();
     if (!token) throw new Error('unauthorized')
 
-    const title = updatedTodo.title
+    
 
-    await axios.put(`${API_URL}/todo/update/${updatedTodo.id}`, { title }, {
+    const title = updatedTodo.title
+    const updatedAt = updatedTodo.updatedAt
+
+    await axios.put(`${API_URL}/todo/update/${updatedTodo.id}`, { title, updatedAt }, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
-    })//titleを渡してる
-
+    })
+    
   } catch (error) {
     console.log(error)
   }
 };
 
-export const authService = Object.freeze({ signin, signup, checkAuth, getTodos, addTodo, deleteTodo, updateTodo})
-// Object.freeze: 1つのvaluable(authService)にまとめてる
+export const authService = Object.freeze({ signin, signup, checkAuth, getTodos, addTodo, deleteTodo, updateTodo, getTodosOrderByTime})
