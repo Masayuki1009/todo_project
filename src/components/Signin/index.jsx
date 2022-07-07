@@ -10,12 +10,12 @@ export const Signin = () => {
 
   console.log("hello from signin", location);
 
-  let from = location.state?.from?.pathname || "/"; //??
+  let from = location.state?.from?.pathname || "/";
   console.log(from);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isSignup, toggleIsSignup] = useState(false); //初期値がfalse
+  const [isSignup, toggleIsSignup] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,12 +24,10 @@ export const Signin = () => {
       ? await authService.signup(email, password)
       : await authService.signin(email, password);
 
-    navigate(from === "/" ? "/home" : from, { replace: true }); // 結局？？ パスないとこ(/)からきた場合(trueの場合)、/home(checkAuth)に向かう
+    navigate(from === "/" ? "/home" : from, { replace: true }); 
 
     console.log(email, password);
   };
-
-  //test
 
   return (
     <>

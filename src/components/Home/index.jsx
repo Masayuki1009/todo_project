@@ -8,7 +8,7 @@ import styles from "./home.module.css";
 export const Home = () => {
   const navigate = useNavigate();
   const [todoLists, setTodoLists] = useState([]);
-  const [todoInput, setTodoInput] = useState(""); // get todo's input, and set it
+  const [todoInput, setTodoInput] = useState(""); 
 
   const clearInputs = () => {
     setTodoInput("");
@@ -34,18 +34,6 @@ export const Home = () => {
     }
   };
 
-  const handleSort = async () => {
-    authService
-      .getTodosOrderByTime()
-      .then((todos) => {
-        setTodoLists(todos.data);
-        console.log("handleSort", todos.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
   useEffect(() => {
     authService
       .getTodos()
@@ -58,12 +46,11 @@ export const Home = () => {
       });
   }, []);
 
-  //test as below
   const deleteTodo = async (id) => {
     const confirmed = window.confirm("Are you sure you want to delete it?");
     if (!confirmed) return alert("delete is canceled");
     await authService.deleteTodo(id);
-    setTodoLists((prev) => [...prev.filter((todo) => todo.id !== id)]); // pick up todos whose id does not match deleted id
+    setTodoLists((prev) => [...prev.filter((todo) => todo.id !== id)]);
   };
 
   return (
@@ -91,11 +78,6 @@ export const Home = () => {
             onChange={(e) => setTodoInput(e.target.value)}
           />
           <button className={styles.addBtn}>add</button>
-        </form>
-        <form onSubmit={handleSort}>
-          <button
-          className={styles.addTodoContentInput}
-          >sort</button>
         </form>
         <ul>
           {todoLists.map((todo) => {

@@ -10,11 +10,10 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
     try {
       let date = new Date();
       const updateDate = date.toLocaleString();
-      const updatedTodo = { ...todo, title: newTodoTitle, updatedAt: updateDate }; //??
+      const updatedTodo = { ...todo, title: newTodoTitle, updatedAt: updateDate };
       await authService.updateTodo(updatedTodo);
       console.log("uodatedTodo", updatedTodo)
 
-      //firstly return updatedTodo after todo is updated, then map all todos???
       setTodoLists((prev) => [
         ...prev.map((todo) => {
           if (todo.id === updatedTodo.id) return { ...updatedTodo };
@@ -23,7 +22,6 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
         }),
       ]);
       setIsEditing(false);
-      // showUpdated(true)
     } catch (error) {
       console.log(error);
     }
@@ -44,7 +42,7 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
     translatedDate = "";
   }
 
-  // Number.isNaN()
+  
 
   return (
     <li key={todo.id} className={styles.todoItem}>
@@ -55,6 +53,7 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
             value={newTodoTitle}
             className={styles.input}
             onChange={(e) => setNewTodoTitle(e.target.value)}
+            autoFocus={true}
           />
         ) : (
           <div>{todo.title}</div>
@@ -74,7 +73,11 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
               save
             </button>
           ) : (
-            <button onClick={(e) => setIsEditing(true)} className={styles.btn}>
+            <button onClick={(e) => {
+              setIsEditing(true)
+
+              }}
+              className={styles.btn}>
               edit
             </button>
           )}

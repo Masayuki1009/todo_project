@@ -1,4 +1,3 @@
-//component書く
 import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { Home } from './components/Home'
@@ -7,7 +6,6 @@ import { Signin } from './components/Signin'
 import { CheckAuth } from './shared/components/CheckAuth'
 import "./App.css"
 
-//component base
 export const App = () => {
   return (
   <div>

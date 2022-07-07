@@ -17,7 +17,7 @@ export const useAuth = () => {
             }).catch(err => {
                       setAuth(false)
                       toggleLoading(false)
-            })//true or false
+            })
   },[])
   return [isAuthenticated, loading]
 }
