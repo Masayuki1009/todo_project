@@ -13,7 +13,7 @@
 
 .addBtn {
   width: 100%;
-  font-size: 1.125rem;
+  font-size: 1.4rem;
   padding: 1rem 1.5rem;
   color: var(--white);
   background-color: var(--primary);
@@ -49,6 +49,7 @@
     width: 960px;
   }
 }
+
 @media (min-width: 1200px) {
   .container {
     width: 1140px;
@@ -58,6 +59,8 @@
 .header {
   display: flex;
   justify-content: space-between;
+  padding-bottom: 15px;
+  padding-top: 15px;
 }
 
 .signoutBtn {
@@ -73,4 +76,21 @@
   border-radius: 0.5rem;
   font-size: 1.1rem;
   width: 5rem;
+}
+
+@media (max-width: 375px) {
+  .header {
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+  }
+  .addTodoContentInput {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .addBtn {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.75rem;
+  }
 }

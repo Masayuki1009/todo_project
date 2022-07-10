@@ -8,7 +8,6 @@
   margin-bottom: 1rem;
   border-left: var(--primary) 5px solid;
   transition: 0.2s ease-in-out;
-
   justify-content: space-between;
 }
 
@@ -20,27 +19,62 @@
   border: 0 solid var(--purple);
 }
 
+.item {
+  margin-left: 1rem;
+}
+
 .time {
   display: block;
   color: var(--purple);
 }
 
-.btn {
-  background-color: var(--purple);
-  color: var(--white);
+.saveBtn, .editBtn {
+  background-color: #3BA55D;
+  color: rgb(255, 255, 255);
   border: 0.1rem solid var(--dark);
   font-size: 1.2rem;
   border-radius: 1rem;
   padding: 0.6rem;
   width: 5rem;
   cursor: pointer;
+  opacity: 0.9;
 }
+
+.deleteBtn, .cancelBtn {
+  background-color: #D83C3E;
+  color: rgb(255, 255, 255);
+  border: 0.1rem solid var(--dark);
+  font-size: 1.2rem;
+  border-radius: 1rem;
+  padding: 0.6rem;
+  width: 5rem;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
 
 .saveEditBtnContainer {
   padding-right: 0.5rem;
+  color: var(--green);
 }
 
 .deleteBtnContainer {
   padding-right: 0.5rem;
 }
 
+@media (max-width: 375px) {
+  .item {
+    margin-left: 0.3rem;
+  }
+  .saveBtn, .editBtn, .deleteBtn, .cancelBtn {
+  border: 0.1rem solid var(--dark);
+  font-size: 0.9rem;
+  padding: 0.5rem;
+  width: 4rem;
+  }
+  .todoItem {
+    font-size: 0.825rem;
+    margin-bottom: 0.8rem;
+    height: 3.5rem;
+  }
+}

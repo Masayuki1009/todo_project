@@ -10,9 +10,13 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
     try {
       let date = new Date();
       const updateDate = date.toLocaleString();
-      const updatedTodo = { ...todo, title: newTodoTitle, updatedAt: updateDate };
+      const updatedTodo = {
+        ...todo,
+        title: newTodoTitle,
+        updatedAt: updateDate,
+      };
       await authService.updateTodo(updatedTodo);
-      console.log("uodatedTodo", updatedTodo)
+      console.log("uodatedTodo", updatedTodo);
 
       setTodoLists((prev) => [
         ...prev.map((todo) => {
@@ -30,23 +34,20 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
   let date = new Date(todo.createdAt);
   let translatedDate = "created at:" + date.toLocaleString();
 
-  let updated = new Date(todo.updatedAt)
+  let updated = new Date(todo.updatedAt);
   let updatedDate = "updated at:" + updated.toLocaleString();
-  console.log("check result", updated)
   const isInvalidDate = (date) => Number.isNaN(date.getTime());
-  const result = isInvalidDate(updated)
+  const result = isInvalidDate(updated);
 
-  if(result === true) {
+  if (result === true) {
     updatedDate = "";
   } else {
     translatedDate = "";
   }
 
-  
-
   return (
     <li key={todo.id} className={styles.todoItem}>
-      <div>
+      <div className={styles.item}>
         {isEditing ? (
           <input
             type="text"
@@ -58,8 +59,8 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
         ) : (
           <div>{todo.title}</div>
         )}
-          <small className={styles.time}>{updatedDate}</small>
-          <small className={styles.time}>{translatedDate}</small>
+        <small className={styles.time}>{updatedDate}</small>
+        <small className={styles.time}>{translatedDate}</small>
       </div>
       <div
         style={{
@@ -69,22 +70,23 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
       >
         <div className={styles.saveEditBtnContainer}>
           {isEditing ? (
-            <button onClick={(e) => handleSave(todo)} className={styles.btn}>
+            <button onClick={(e) => handleSave(todo)} className={styles.saveBtn}>
               save
             </button>
           ) : (
-            <button onClick={(e) => {
-              setIsEditing(true)
-
+            <button
+              onClick={(e) => {
+                setIsEditing(true);
               }}
-              className={styles.btn}>
+              className={styles.editBtn}
+            >
               edit
             </button>
           )}
         </div>
         <div className={styles.deleteBtnContainer}>
           {isEditing ? (
-            <button onClick={(e) => setIsEditing(false)} className={styles.btn}>
+            <button onClick={(e) => setIsEditing(false)} className={styles.cancelBtn}>
               cancel
             </button>
           ) : (
@@ -92,7 +94,7 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
               onClick={() => {
                 deleteTodo(todo.id);
               }}
-              className={styles.btn}
+              className={styles.deleteBtn}
             >
               delete
             </button>

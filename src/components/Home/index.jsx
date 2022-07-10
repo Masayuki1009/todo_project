@@ -8,7 +8,7 @@ import styles from "./home.module.css";
 export const Home = () => {
   const navigate = useNavigate();
   const [todoLists, setTodoLists] = useState([]);
-  const [todoInput, setTodoInput] = useState(""); 
+  const [todoInput, setTodoInput] = useState("");
 
   const clearInputs = () => {
     setTodoInput("");
@@ -57,7 +57,7 @@ export const Home = () => {
     <>
       <div className={styles.container}>
         <div className={styles.header}>
-          <h1>Todos App</h1>
+          <h2>Todos App</h2>
           <button
             onClick={(e) => {
               tokenManager.remove();
