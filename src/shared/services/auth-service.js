@@ -52,7 +52,6 @@ const getTodos = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("res ", res.data[0].createdAt.toLocaleString());
     return res;
   } catch (error) {
     console.log(error);
@@ -76,7 +75,6 @@ const addTodo = async (title, createdAt) => {
     console.log("res", res);
 
     const data = await res.data; //ここりゅうのと少し違う
-    console.log("data", data);
     return data;
   } catch (error) {
     console.log(error);

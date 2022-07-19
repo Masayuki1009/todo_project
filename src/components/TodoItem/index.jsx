@@ -45,6 +45,7 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
     translatedDate = "";
   }
 
+
   return (
     <li key={todo.id} className={styles.todoItem}>
       <div className={styles.item}>

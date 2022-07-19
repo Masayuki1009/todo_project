@@ -28,7 +28,7 @@
   color: var(--purple);
 }
 
-.saveBtn, .editBtn {
+.editBtn {
   background-color: #3BA55D;
   color: rgb(255, 255, 255);
   border: 0.1rem solid var(--dark);
@@ -40,8 +40,32 @@
   opacity: 0.9;
 }
 
-.deleteBtn, .cancelBtn {
+.saveBtn {
+  background-color: #3BA55D;
+  color: rgb(255, 255, 255);
+  border: 0.1rem solid var(--dark);
+  font-size: 1.2rem;
+  border-radius: 1rem;
+  padding: 0.6rem;
+  width: 5rem;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.deleteBtn {
   background-color: #D83C3E;
+  color: rgb(255, 255, 255);
+  border: 0.1rem solid var(--dark);
+  font-size: 1.2rem;
+  border-radius: 1rem;
+  padding: 0.6rem;
+  width: 5rem;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+.cancelBtn {
+  background-color: var(--purple);
   color: rgb(255, 255, 255);
   border: 0.1rem solid var(--dark);
   font-size: 1.2rem;

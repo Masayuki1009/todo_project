@@ -39,7 +39,7 @@ export const Home = () => {
       .getTodos()
       .then((todos) => {
         setTodoLists(todos.data);
-        console.log("useeffect todos.json", todos.data);
+        console.log("useeffect todos.json", todos.data[0].title.length);
       })
       .catch((error) => {
         console.log(error);
