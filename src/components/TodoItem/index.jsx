@@ -58,7 +58,7 @@ export const TodoItem = ({ todo, deleteTodo, setTodoLists }) => {
             autoFocus={true}
           />
         ) : (
-          <div>{todo.title}</div>
+          <div>{todo.title.substr(0, 24)}</div>
         )}
         <small className={styles.time}>{updatedDate}</small>
         <small className={styles.time}>{translatedDate}</small>
